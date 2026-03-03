@@ -204,6 +204,7 @@ Things like the createBrowserRouter can change to a different type of router.
 
 
 ## PostgreSQL
+### How to (maybe) install other versions
 - Uninstall the wrong version of PostgreSQL (Ubuntu): `apt-get --purge remove postgresql-{number}`
 - To install PostgreSQL 14:
     - `sudo apt update` to grab latest packages
@@ -214,3 +215,13 @@ Things like the createBrowserRouter can change to a different type of router.
     - `sudo apt install postgresql-14` to install PostgreSQL 14
     - `sudo service postgresql@14 restart` to restart the service
     - `sudo -u postgres psql` to access shell (you're done, yay!)
+### Add your user to your database
+- Log in as postgres `sudo -u postgres -i`
+- Run `CREATE ROLE {username} superuser LOGIN;`
+    - if user exists, then run `ALTER ROLE {username} WITH superuser LOGIN;`
+- Good to `\q` and exit out of postgres shell, then log into the database as user
+    - as username, `psql {database}`
+### Copy from CSV
+- https://www.postgresql.org/docs/18/sql-copy.html
+- `COPY table FROM filepath WITH DELIMITER AS ',' CSV HEADER;`
+- copy the file to /tmp/ folder so that PostgreSQL server has access
