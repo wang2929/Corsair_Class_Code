@@ -97,8 +97,47 @@ To copy a repo from Github: git clone git_url
 - An HTML element can have multiple classes separated by spaces e.g. class="class1 class2", then can style by combining multiple CSS styles
 
 ## Python
+- For dictionary, can use get method to get the value
+    - dict.get(key, default), can assign a default value to return if doesn't exist
 ### Lambda Functions
 TBD but I want to write something about it
+### Django
+- Virtual environment: `python -m venv <env_name>`
+- Activate venv: `source <env_name>/bin/activate`
+- Then to deactivate, use deactivate
+- install django with pip, then run `django-admin` to check it worked
+- new project: `django-admin startproject <name_proj>`
+- create an app `python manage.py startapp <app_name>`
+- add app to installed apps under settings.py
+- update database to postgres
+    - 'ENGINE': 'django.db.backends.postgresql'
+    - 'NAME': 'db_name'
+    - 'HOST': 'container-name'
+    - 'PORT': '5432',
+    - 'USER': 'user_made_in_env_vars'
+    - 'PASSWORD': 'password_made_in_env_vars'
+- install psycopg3 `pip install "psycopg[binary]"`
+- get requirements.txt (for the container) `pip freeze > requirements.txt`
+- Make a Dockerfile for django
+    - use Python image (of course)
+    - WORKDIR /app
+    - COPY . . 
+    - install requirements.txt
+    - EXPOSE web port
+    - CMD to run server
+- update ALLOWED_HOSTS in settings.py to connect to container
+- Make the Docker compose to link everything together
+- In the Django terminal (container or local) run `python manage.py shell` to open shell
+    - can import models from app.models to test methods
+- To migrate, run `python manage.py makemigrations` then `python manage.py migrate`
+#### Fixtures
+- In the app directory, make a directory to hold fixtures
+- To export data, run `python manage.py dumpdata {app}.{model} --indent 2 > {app}/fixtures/{data}.json`
+    - app for the django app within the project folder
+    - model for the table model getting exported
+    - {data}.json folder can be named anything
+- To import data to the table, run `python manage.py loaddata {data}.json`
+    - {data}.json to match the export name above
 
 ## Javascript
 - <b>if-else shorthand:</b> condition ? true-expression : false-expression
@@ -206,15 +245,16 @@ Things like the createBrowserRouter can change to a different type of router.
 ## PostgreSQL
 ### How to (maybe) install other versions
 - Uninstall the wrong version of PostgreSQL (Ubuntu): `apt-get --purge remove postgresql-{number}`
-- To install PostgreSQL 14:
-    - `sudo apt update` to grab latest packages
-    - `sudo apt install wget -y` for wget (-y for yes)
-    - `wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -` to import the repository key
-    - `sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'` to find and install the PostgreSQL repository and packages
-    - `sudo apt update` to upgrade packages again
-    - `sudo apt install postgresql-14` to install PostgreSQL 14
-    - `sudo service postgresql@14 restart` to restart the service
-    - `sudo -u postgres psql` to access shell (you're done, yay!)
+- `psql -U {username} -d {db_name}` to run in psql as a specific user (useful in the container)
+### To install PostgreSQL 14:
+- `sudo apt update` to grab latest packages
+- `sudo apt install wget -y` for wget (-y for yes)
+- `wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -` to import the repository key
+- `sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'` to find and install the PostgreSQL repository and packages
+- `sudo apt update` to upgrade packages again
+- `sudo apt install postgresql-14` to install PostgreSQL 14
+- `sudo service postgresql@14 restart` to restart the service
+- `sudo -u postgres psql` to access shell (you're done, yay!)
 ### Add your user to your database
 - Log in as postgres `sudo -u postgres -i`
 - Run `CREATE ROLE {username} superuser LOGIN;`
@@ -225,3 +265,90 @@ Things like the createBrowserRouter can change to a different type of router.
 - https://www.postgresql.org/docs/18/sql-copy.html
 - `COPY table FROM filepath WITH DELIMITER AS ',' CSV HEADER;`
 - copy the file to /tmp/ folder so that PostgreSQL server has access
+
+## Dot Net stuff
+### EF Core process
+Entity Framework Core or EF Core is dotnet's way of linking code data to the database. You can start with code and then map to DB or start with the DB and map the code models to match. Model first is similar to Code first except you only define the models before creating the database, not the other parts of the backend.
+
+Generally Code First is preferred since the heavy logic happens in code. The API has to be able to grab data efficiently first. Frontend can be flexible on displaying the API data, and database can be flexible in setup. A good understanding of both code and database is important when making an API.
+#### Code first migration
+1. Add classes for each table into a Models folder
+    - Classes should define the table restrictions, either with Fluent API or Data Annotations
+    - Fluent API wins over Data Annotations and Conventions
+    - Fluent API to OnModelCreating in the DbContext, vs Data Annotations are marked in class files
+    - See [.Net Code Chronicles](https://amarozka.dev/entity-framework-data-annotations/) for more setup instructions on how to set up.
+2. Add a DBContext into the Data folder.
+3. Add relevant packages. See [available database providers](https://learn.microsoft.com/en-us/ef/core/providers/)
+4. In Package Manager console, command `Add-Migration "Initial Migration` to add an initial migration
+    - can update the name for subsequent migrations
+    - use `-o` or `--output-dir` to define the Migrations path e.g. `Data\Migrations`
+5. Command `Update-Database` to see table defined as the models
+#### Database first migration
+1. Download relevant packages. See [available database providers](https://learn.microsoft.com/en-us/ef/core/providers/)
+2. In the Package Manager console, type `Scaffold-DbContext {connectionString} {package name} -ContextDir Data -OutputDir Models`
+    - Connection string e.g. `host=localhost;port=5432;username=test;password=test`
+    - Package name can be for Pomelo, Npgsql, Microsoft's SQL, etc. e.g. Microsoft.EntityFrameworkCore.SqlServer
+    - `-ContextDir` option for the database context directory
+    - `-OutputDir` option for the folder where classes corresponding to tables should go
+    - `-DataAnnotations` to include data annotations in the class
+        - Fluent API is used by default in OnModelCreating
+    - More details [here](https://learn.microsoft.com/en-us/ef/core/managing-schemas/scaffolding/)
+
+#### EF Core and MySQL
+- Pomelo is open source and preferred package for MySQL using EF Core
+- As of February 2026, Pomelo hasn't been updated for .net 10
+    - Use version 9 of EF Core plus Pomelo is compatible with .net 10
+#### EF Core and PostgreSQL
+- Npgsql is updated for .net10 and ready to go with most recent stuff
+- Be sure to update the username and password in the testing connection string
+
+## Backend (web API plus DB) container deployment
+- Use two Docker containers: one for web server and one for DB
+    - expose a port (5432 for PostgreSQL) for the web server and database to talk
+    - Run web server on the port that should be exposed for the API
+- Make one container first, then use `--link` option on the second container during `docker run`
+- maybe run database detached `-d` option
+### For the compose.yaml:
+1. Make the Dockerfile for the web server
+    - For Django, image is Python
+    - set workdir to /app
+    - copy files in current directory to container
+    - install requirements.txt
+    - expose port 8000 for web server
+2. In compose.yaml, under services, set db to the database image
+    - be sure to set env vars for the user (either in the yaml or in .env file)
+    - map port 5432 to 5433 locally (postgreSQL runs locally on 5432)
+    - define the container name with 'container-name'
+    - name image with 'image' attribute
+    - if web part depends_on the database and has a condition for service_healthy, add a health check
+        - for postgres, `test: ["CMD-SHELL", "pg_isready -U {user} -d {database}"]` is a good command for it (be sure to replace user and database)
+        - interval checks for the output
+        - timeout determines when to stop checking for health
+        - retries is how many times to try before giving up
+    
+3. In compose.yaml, under services, set web to build from Dockerfile
+    - 'container-name' defined
+    - command to run server
+    - map port 8000 to 8000
+    - volumes should mound current directory . to /app
+    - depends_on adds a check to make sure web doesn't build before db
+        - can add a status to the db based on `condition` either to check started, check completed, or by health check
+        - healthcheck is a command to see if a service is healthy
+    - can run multiple commands by a list `[sh, -c, 'python manage.py migrate && python manage.py runserver 0.0.0.0:8000']` (I had issues with a regular string)
+    - to make a superuser, set environment variables to DJANGO_SU_USERNAME, DJANGO_SU_EMAIL, and DJANGO_SU_PASSWORD. Then the command is `python manage.py createsuperuser --no-input` with the no-input flag
+4. `docker compose up` to run and `docker compose down` to remove containers
+#### Other tips:
+- Will add something about volumes for the DB to map the data to a local folder to hold the data
+
+## Database Design
+- First normal form is for a regular table
+    - Some table items like customer ID and customer name, which are linked, still exist in the same table
+- Second normal form is for a table where keys called primary determine vales in other columns
+    - Customer table to seprate customer info from sales info
+- Third normal form is when all transitively dependent values are removed
+    - transitively dependent: when one value determines values in other columns e.g. customer id and customer name
+    - values that depend on each other are in their own table
+- Conceptual vs Internal vs External schema
+    - Conceptual: model databases after real life
+    - Internal: the structure of a database inside the computer
+    - External: how other users and external apps use the data
