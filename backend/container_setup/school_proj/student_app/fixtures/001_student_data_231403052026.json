@@ -1,0 +1,14 @@
+[
+{
+  "model": "student_app.student",
+  "pk": 1,
+  "fields": {
+    "name": "Steve S. Son",
+    "student_email": "jameson5@school.com",
+    "personal_email": "stevenson@yahoo.com",
+    "locker_number": 150,
+    "locker_combination": "35-50-02",
+    "good_student": true
+  }
+}
+]
