@@ -262,11 +262,20 @@ Things like the createBrowserRouter can change to a different type of router.
 - Good to `\q` and exit out of postgres shell, then log into the database as user
     - as username, `psql {database}`
 ### Copy from CSV
-- https://www.postgresql.org/docs/18/sql-copy.html
+- [Reference link](https://www.postgresql.org/docs/18/sql-copy.html)
 - `COPY table FROM filepath WITH DELIMITER AS ',' CSV HEADER;`
 - copy the file to /tmp/ folder so that PostgreSQL server has access
 
-## Dot Net stuff
+## Dot Net Stuff
+Not related to the class, but personal notes for me since I'm working on web API using ASP.NET.
+### Web API
+- MVC vs Web API: MVC is a development framework for creating full stack web apps. Model for classes that hold data, view for the user UI, and controller for connecting the view and the model. Versus web API is only the model part. 
+    - See [this stackoverflow answer](https://stackoverflow.com/a/65969849) on MVC in the context of React
+- Minimal APIs vs Controller-based: Controller-based APIs are more structured vs Minimal APIs offer more freedom to structure an API
+    - Structure means less room for errors
+    - Freedom means faster to implement
+- Definitely use controller-based for a full-stack MVC app - controller-based can return app parts like views, pages, and more
+- On Minimal APIs, see [Tess Fernandez](https://www.tessferrandez.com/blog/2023/10/31/organizing-minimal-apis.html) on how to structure minimal APIs
 ### EF Core process
 Entity Framework Core or EF Core is dotnet's way of linking code data to the database. You can start with code and then map to DB or start with the DB and map the code models to match. Model first is similar to Code first except you only define the models before creating the database, not the other parts of the backend.
 
