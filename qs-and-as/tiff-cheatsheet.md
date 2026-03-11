@@ -268,6 +268,7 @@ Things like the createBrowserRouter can change to a different type of router.
 
 ## Dot Net Stuff
 Not related to the class, but personal notes for me since I'm working on web API using ASP.NET.
+- Why write interfaces? Interfaces act much like an abstract class or a normal parent class. Interface contains syntax of methods shared across different services. See [discussion on stackoverflow](https://stackoverflow.com/questions/6802573/interfaces-whats-the-point)
 ### Web API
 - MVC vs Web API: MVC is a development framework for creating full stack web apps. Model for classes that hold data, view for the user UI, and controller for connecting the view and the model. Versus web API is only the model part. 
     - See [this stackoverflow answer](https://stackoverflow.com/a/65969849) on MVC in the context of React
@@ -275,7 +276,7 @@ Not related to the class, but personal notes for me since I'm working on web API
     - Structure means less room for errors
     - Freedom means faster to implement
 - Definitely use controller-based for a full-stack MVC app - controller-based can return app parts like views, pages, and more
-- On Minimal APIs, see [Tess Fernandez](https://www.tessferrandez.com/blog/2023/10/31/organizing-minimal-apis.html) on how to structure minimal APIs
+- On Minimal APIs, see [Tess Fernandez's article](https://www.tessferrandez.com/blog/2023/10/31/organizing-minimal-apis.html) on how to structure minimal APIs
 ### EF Core process
 Entity Framework Core or EF Core is dotnet's way of linking code data to the database. You can start with code and then map to DB or start with the DB and map the code models to match. Model first is similar to Code first except you only define the models before creating the database, not the other parts of the backend.
 

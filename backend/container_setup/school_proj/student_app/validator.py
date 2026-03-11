@@ -46,3 +46,34 @@ def validate_locker_number_high(val):
         return val
     else:
         raise ValidationError(error_msg, params={ 'locker number': val })
+
+def validate_subject_name(val):
+    error_msg = "Subject must be in title case format."
+    if val.istitle():
+        return val
+    else:
+        raise ValidationError(error_msg, params={ 'subject_name': val })
+
+def validate_professor_name(val):
+    error_msg = "Professor name must be in the format \"Professor Adam\"."
+    regex = r"Professor\s[A-Z][a-z]*"
+    good_name = re.match(regex, val)
+    if good_name:
+        return val
+    else:
+        raise ValidationError(error_msg, params={ 'professor': val })
+
+def validate_high_grade(val):
+    error_msg = "Ensure this value is less than or equal to 100.0."
+    if val <= 100:
+        return val
+    raise ValidationError(error_msg, params={ 'grade': val })
+
+def validate_low_grade(val):
+    error_msg = "Ensure this value is greater than or equal to 0.0."
+    if val >= 0:
+        return val
+    raise ValidationError(error_msg, params={ 'grade': val })
+
+def validate_grade(val):
+    return val

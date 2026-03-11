@@ -1,0 +1,78 @@
+[
+{
+  "model": "student_app.subject",
+  "pk": 1,
+  "fields": {
+    "subject_name": "Biology",
+    "professor": "Mr. Cahan"
+  }
+},
+{
+  "model": "student_app.subject",
+  "pk": 2,
+  "fields": {
+    "subject_name": "History",
+    "professor": "Mr. Cahan"
+  }
+},
+{
+  "model": "student_app.student",
+  "pk": 1,
+  "fields": {
+    "name": "Tim T. Tim",
+    "student_email": "tim@school.com",
+    "personal_email": "tim@email.com",
+    "locker_number": 110,
+    "locker_combination": "12-12-12",
+    "good_student": true
+  }
+},
+{
+  "model": "student_app.student",
+  "pk": 2,
+  "fields": {
+    "name": "Kim K. Kim",
+    "student_email": "kim@school.com",
+    "personal_email": "kim@email.com",
+    "locker_number": 111,
+    "locker_combination": "12-12-12",
+    "good_student": true
+  }
+},
+{
+  "model": "student_app.grade",
+  "pk": 1,
+  "fields": {
+    "grade": "100.00",
+    "a_subject": 1,
+    "student": 1
+  }
+},
+{
+  "model": "student_app.grade",
+  "pk": 2,
+  "fields": {
+    "grade": "100.00",
+    "a_subject": 1,
+    "student": 2
+  }
+},
+{
+  "model": "student_app.grade",
+  "pk": 3,
+  "fields": {
+    "grade": "100.00",
+    "a_subject": 2,
+    "student": 1
+  }
+},
+{
+  "model": "student_app.grade",
+  "pk": 4,
+  "fields": {
+    "grade": "100.00",
+    "a_subject": 2,
+    "student": 2
+  }
+}
+]
