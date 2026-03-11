@@ -37,9 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
     'student_app',
-    'rest_framework'
+    'user_app'
 ]
+
+# specify the auth method for the REST framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -85,6 +94,8 @@ DATABASES = {
     }
 }
 
+# Added to change the user model
+AUTH_USER_MODEL = 'user_app.User' #<-- tells our Django Project to utilize the Trainer model
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
