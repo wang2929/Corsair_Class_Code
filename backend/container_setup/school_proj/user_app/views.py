@@ -15,19 +15,20 @@ class Sign_Up(APIView):
     
     def post(self, request):
         try:
+            new_user = request.data
             user = User.objects.create_user(
-                username=request.data.get('email'),
-                email=request.data.get('email'),
-                password=request.data.get('password')
+                username=new_user.get('email'),
+                email=new_user.get('email'),
+                password=new_user.get('password')
             )
             token = Token.objects.create(user=user)
             login(request, user)
             return Response(
-                {"Username": user.email, "token": token.key}, status=s.HTTP_201_CREATED
+                {f"Request: {new_user} Username: {user.email} token: {token.key}" }, status=s.HTTP_201_CREATED
             )
         except Exception as e:
             return Response(
-                f"Unable to create user with {user_data}\n" + str(e), status=s.HTTP_400_BAD_REQUEST
+                f"Unable to create user with {new_user}\n" + str(e), status=s.HTTP_400_BAD_REQUEST
             )
 
 class Log_In(APIView):
@@ -42,7 +43,7 @@ class Log_In(APIView):
             token, created = Token.objects.get_or_create(user=user)
             return Response({"token": token.key, "User": user.email}, status=s.HTTP_200_OK)
         else:
-            return Response("No trainer matching credentials", status=s.HTTP_404_NOT_FOUND)
+            return Response("No user matching credentials - " + str(e), status=s.HTTP_404_NOT_FOUND)
         
 class Info(APIView):
     authentication_classes = [TokenAuthentication]
