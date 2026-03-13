@@ -1,4 +1,4 @@
-docker build --quiet -t dj-img .
+docker build -t dj-img .
 
 docker run --rm \
   -p 8000:8000 \

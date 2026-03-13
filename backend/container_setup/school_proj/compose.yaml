@@ -2,7 +2,7 @@
 services: 
   web:
     build: .
-    image: dj-container
+    image: dj-contain er
     container_name: dj-container
     # add back superuser later, once figure out the quirks w/ auth
     command: [sh, -c, "python manage.py migrate && 
