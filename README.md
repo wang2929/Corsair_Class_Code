@@ -22,3 +22,9 @@ Some of the class exercises include class attributes, class methods, inheritance
 
 ## frontend
 This folder contains some Vanilla js and React projects
+
+## backend
+This folder contains django web apis.
+
+## full stack
+The docker-compose-demo holds a template for writing full-stack apps using react frontend with nginx HTTP server, django backend, and postgresql database. Copy this folder to develop full-stack apps. In the client folder, be sure to run `npm run watcher` so that the dist directory updates to the frontend server.

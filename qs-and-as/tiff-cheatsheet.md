@@ -1,9 +1,65 @@
 # Tiffany's Coding Cheat Sheet
+## Helpful shell commands
+- `grep -nir <name> .` to find old project names mentioned and rename
+    - `n` option to display line numbers
+    - `i` option to ignore case
+    - `r` option to search recursively (in subfolders)
+## Planning a project
+This contains some steps to making an app from scratch.
+### Elevator pitch template
+
+> 
+> For *[target customer]*
+>
+> who *[statement of need or opportunity]*
+>
+> the *[product name]*
+>
+> is a *[product category]*
+>
+> that *[key benefit, compelling reason to buy/use]*.
+>
+> Unlike *[primary competitive alternative]* 
+>
+> our product *[statement of primary differentiation]*.
+>
+
+### Scope
+Vocab:
+- Features: buckets of functionality that solves a problem or adds value
+- User stories: break features to more detailed descriptions of the feature
+- Acceptance criteria: how to know something is done
+
+Goal - big idea, broadest "why" behind app; business outcome
+- Feature 1 - big pieces of functionality
+    - User story 1.1 - smaller, testable units of value associated with the feature
+    - User story 1.2
+- Feature 2
+    - User story 2.1
+
+Example: Dinner Party. Goal: Have fun!
+- Plan the meal
+    - Allergies
+    - 3 course menu
+- Materials
+    - list of non-perishable items
+    - seating, chairs
+- Set up event
+    - Clean venue
+    - RSVPs
+
+### Feature Prioritization
+MoSCoW method (MSCW):
+- Must have: needed for the project to succeed.
+- Should have: high-priority bonuses - nice to have but workarounds exist for now
+- Could have: wishlist; cool features but not essential now; future ideas
+- Won't have: not now; use to prevent scope creep
 
 ## Markdown
-- Using Markdown Preview Enhanced extension on VS Code, view the formatted markdown using `ctrl+k + v`
+Using Markdown Preview Enhanced extension on VS Code, view the formatted markdown using `ctrl+k + v`
 
 ## Github
+Using Github notes here.
 ### Change default branch name
 Change default branch setting: `git config --global init.defaultBranch main`
 Rename branch: `git branch -m {name}`
@@ -84,6 +140,8 @@ To copy a repo from Github: git clone git_url
 1. Build the image: `docker build --tag image_name /location/`
 2. Use regular docker run `docker run --rm --name <container-name <image-name`
 3. Either install packages as root or add RUN commands to Dockerfile
+### Docker Compose
+- 
 
 
 ## HTML and CSS
@@ -265,6 +323,13 @@ Things like the createBrowserRouter can change to a different type of router.
 - [Reference link](https://www.postgresql.org/docs/18/sql-copy.html)
 - `COPY table FROM filepath WITH DELIMITER AS ',' CSV HEADER;`
 - copy the file to /tmp/ folder so that PostgreSQL server has access
+### PSQL shell
+- `createdb` and `dropdb` to add/remove databases
+- `psql` useful options:
+    - `-h` for host e.g. `-h localhost` for psql in a container
+    - `-p` for port e.g. `-p 5433` if I bind the container to port 5433
+    - `-d` for database name
+    - `-U` for database user
 
 ## Dot Net Stuff
 Not related to the class, but personal notes for me since I'm working on web API using ASP.NET.
