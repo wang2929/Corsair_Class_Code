@@ -1,11 +1,26 @@
 # Tiffany's Coding Cheat Sheet
+This is a compilation of notes I've taken over my time at Code Platoon. The notes are primarily for syntax and important CLI commands.
+
 ## Helpful shell commands
 - `grep -nir <name> .` to find old project names mentioned and rename
     - `n` option to display line numbers
     - `i` option to ignore case
     - `r` option to search recursively (in subfolders)
+
+## Some nice prompts for resume refining
+Courtesy of [Calvin Joewono](https://www.linkedin.com/in/cjoewono/)
+- Act as a senior recruiter. Analyze my resume against this job description. Give me a match score out of 100 and list the top 5 missing keywords i need.
+- Act as a senior recruiter. I am going to provide my resume and a job description. Analyze my resume against this job description, give me a match score out of 100, and list the top 5 missing skills or keywords I need to include to pass an ATS scan.
+- Rewrite my experience section to naturally include those keywords. Use the Google X-Y-Z formula: Accomplished [X] as measured by [Y], by doing [Z].
+- Based on the missing keywords and the job description, rewrite my experience section to naturally include those keywords. Use the Google XYZ framework: Accomplished [X] as measured by [Y] by doing [Z]. Make sure the bullet points are high-impact and focus on results, not just tasks.
+- Now acts as an Applicant Tracking System filter. Scan my new resume. Tell me which sections a bot would struggle to read.
+- Act as an applicant tracking system filter. Scan my updated resume and tell me which sections a bot would struggle to read. Please also ensure the output is in a clean format, removing any complex elements that could lead to rejection.
+- Act as the hiring manager for this specific role. Ask me the three hardest technical questions you would ask. Then give me the perfect response based on my background.
+
+
 ## Planning a project
 This contains some steps to making an app from scratch.
+
 ### Elevator pitch template
 
 > 
